@@ -15,6 +15,7 @@
             <div class="logo">PTGScompany</div>
             <nav class="main-nav">
                 <ul>
+                    <li><a href="news/news.html" class="nav-news-btn">📰 Новости</a></li>
                     <li><a href="#about">О нас</a></li>
                     <li><a href="#games">Наши игры</a></li>
                     <li><a href="#vacancies">Вакансии</a></li>
@@ -29,7 +30,10 @@
         <div class="hero-content">
             <h1>Творческое объединение <span class="highlight">PTGScompany</span></h1>
             <p>Разработка независимых инди-игр, текстовых симуляторов и масштабных вселенных.</p>
-            <a href="#games" class="btn-primary">Смотреть проекты</a>
+            <div class="hero-buttons">
+                <a href="#games" class="btn-primary">Смотреть проекты</a>
+                <a href="news/news.html" class="btn-secondary">Читать новости студии</a>
+            </div>
         </div>
     </section>
 
@@ -46,19 +50,24 @@
         <div class="container">
             <h2>Наши игры</h2>
             <div class="games-grid">
-                <!-- SWORD N` FOREST (Активная разработка) -->
-                <div class="game-card active-project">
-                    <div class="game-badge active">В разработке</div>
-                    <h3>SWORD N` FOREST</h3>
-                    <p>Наш флагманский проект в жанре инди-приключения. На данный момент игра находится в стадии активного производства подразделением PTGScompanyDev. Готовится масштабный игровой мир.</p>
-                    <span class="btn-secondary btn-disabled">Скоро в RuStore</span>
+                <!-- SWORD N` FOREST (Активная разработка + Анимационный контейнер) -->
+                <div class="game-card active-project" id="sword-project">
+                    <div class="pixel-animation-container"></div> <!-- Сюда JS будет сыпать пиксели -->
+                    <div class="card-content">
+                        <div class="game-badge active">В разработке</div>
+                        <h3>SWORD N` FOREST</h3>
+                        <p>Наш флагманский проект в жанре инди-приключения. На данный момент игра находится в стадии активного производства подразделением PTGScompanyDev. Готовится масштабный игровой мир.</p>
+                        <span class="btn-secondary btn-disabled">Скоро в RuStore</span>
+                    </div>
                 </div>
                 <!-- The Cosmonaut's Last Hope (Архив) -->
                 <div class="game-card archived-project">
-                    <div class="game-badge archived">Закрыт</div>
-                    <h3>The Cosmonaut's Last Hope</h3>
-                    <p>Научно-фантастический 2D-платформер про выживание космонавта Михаила Абрамова. Разработка и поддержка проекта официально завершены, обновлений больше не будет.</p>
-                    <a href="https://www.rustore.ru/catalog/app/com.ptgscompany.tclh" target="_blank" class="btn-archived">Страница в RuStore</a>
+                    <div class="card-content">
+                        <div class="game-badge archived">Закрыт</div>
+                        <h3>The Cosmonaut's Last Hope</h3>
+                        <p>Научно-фантастический 2D-платформер про выживание космонавта Михаила Абрамова. Разработка и поддержка проекта официально завершены, обновлений больше не будет.</p>
+                        <a href="https://rustore.ru" target="_blank" class="btn-archived">Страница в RuStore</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,29 +94,31 @@
         </div>
     </section>
 
-    <!-- Окно для заполнения отзыва/вопроса -->
+    <!-- Форма автоматической отправки отзывов -->
     <section id="feedback" class="feedback-section">
         <div class="container">
             <h2>Обратная связь</h2>
             <p class="section-subtitle">Есть вопрос по поводу SWORD N` FOREST или хочешь отправить отзыв/резюме? Напиши нам!</p>
-            <form id="gmail-form" class="feedback-form">
+            <form id="ajax-feedback-form" class="feedback-form">
+                <!-- Скрытый ключ Web3Forms (Инструкция как его получить — ниже в описании) -->
+                <input type="hidden" name="access_key" value="67f284e5-eddc-4717-818f-c196ec0aad09" id="web3forms-key">
+                <!-- Тема письма для почтового ящика -->
+                <input type="hidden" name="subject" value="Новое сообщение с сайта PTGScompany">
+                <input type="checkbox" name="botcheck" id="" style="display: none;">
+
                 <div class="form-group">
                     <label for="user-name">Ваше имя или никнейм:</label>
-                    <input type="text" id="user-name" placeholder="Иван" required>
+                    <input type="text" name="name" id="user-name" placeholder="Иван" required>
                 </div>
                 <div class="form-group">
-                    <label for="form-subject">Тема обращения:</label>
-                    <select id="form-subject">
-                        <option value="Вопрос по SWORD N` FOREST">Вопрос по SWORD N` FOREST</option>
-                        <option value="Хочу в команду (Вакансия)">Хочу в команду (Вакансия)</option>
-                        <option value="Отзыв / Предложение">Отзыв / Предложение</option>
-                    </select>
+                    <label for="user-email">Ваш Email для ответа:</label>
+                    <input type="email" name="email" id="user-email" placeholder="example@gmail.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="user-message">Сообщение:</label>
-                    <textarea id="user-message" rows="5" placeholder="Текст вашего сообщения..." required></textarea>
+                    <label for="user-message">Сообщение / Резюме:</label>
+                    <textarea name="message" id="user-message" rows="5" placeholder="Текст вашего сообщения..." required></textarea>
                 </div>
-                <button type="submit" class="btn-submit">Отправить на Gmail</button>
+                <button type="submit" class="btn-submit" id="submit-btn">Отправить сообщение</button>
             </form>
         </div>
     </section>
