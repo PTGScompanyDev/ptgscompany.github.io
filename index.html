@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Официальный сайт творческого объединения и инди-разработчиков PTGScompany. Разработка игр, ВПИ и вакансии.">
+    <title>PTGScompany | Официальный сайт</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <!-- Шапка сайта (Навигация) -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">PTGScompany</div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#games">Наши игры</a></li>
+                    <li><a href="#vacancies">Вакансии</a></li>
+                    <li><a href="#feedback">Обратная связь</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главный баннер (Hero Section) -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Творческое объединение <span class="highlight">PTGScompany</span></h1>
+            <p>Разработка независимых инди-игр, текстовых симуляторов и масштабных вселенных.</p>
+            <a href="#games" class="btn-primary">Смотреть проекты</a>
+        </div>
+    </section>
+
+    <!-- О студии -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>О компании</h2>
+            <p>Мы — независимое молодежное объединение разработчиков, энтузиастов и маркетологов из Нижнего Тагила. Наша цель — создавать уникальные игровые миры, развивать текстовые военно-политические игры (WPG) и объединять творческих людей вокруг общих идей.</p>
+        </div>
+    </section>
+
+    <!-- Игровые проекты -->
+    <section id="games" class="games-section">
+        <div class="container">
+            <h2>Наши игры</h2>
+            <div class="games-grid">
+                <!-- SWORD N` FOREST (Активная разработка) -->
+                <div class="game-card active-project">
+                    <div class="game-badge active">В разработке</div>
+                    <h3>SWORD N` FOREST</h3>
+                    <p>Наш флагманский проект в жанре инди-приключения. На данный момент игра находится в стадии активного производства подразделением PTGScompanyDev. Готовится масштабный игровой мир.</p>
+                    <span class="btn-secondary btn-disabled">Скоро в RuStore</span>
+                </div>
+                <!-- The Cosmonaut's Last Hope (Архив) -->
+                <div class="game-card archived-project">
+                    <div class="game-badge archived">Закрыт</div>
+                    <h3>The Cosmonaut's Last Hope</h3>
+                    <p>Научно-фантастический 2D-платформер про выживание космонавта Михаила Абрамова. Разработка и поддержка проекта официально завершены, обновлений больше не будет.</p>
+                    <a href="https://www.rustore.ru/catalog/app/com.ptgscompany.tclh" target="_blank" class="btn-archived">Страница в RuStore</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок вакансий PTGScompanyDev -->
+    <section id="vacancies" class="vacancies-section">
+        <div class="container">
+            <h2>Вакансии в PTGScompanyDev</h2>
+            <p class="section-subtitle">Мы всегда ищем талантливых людей в команду разработки. Присоединяйся к созданию SWORD N` FOREST!</p>
+            <div class="vacancies-list">
+                <div class="vacancy-item">
+                    <h4>Художник спрайтов и локаций (2D / Pixel Art)</h4>
+                    <p>Обязанности: отрисовка элементов окружения, анимация персонажей и создание уникальной атмосферы лесных биомов.</p>
+                    <span class="vacancy-pay">Оплата: от 50 до 1000 руб. за объект (в зависимости от сложности)</span>
+                </div>
+                <div class="vacancy-item">
+                    <h4>Инди-программист</h4>
+                    <p>Обязанности: реализация игровой логики, механики боевой системы для SWORD N` FOREST и оптимизация билдов под мобильные платформы.</p>
+                    <span class="vacancy-pay">Оплата: по договоренности / проектная</span>
+                </div>
+            </div>
+            <p class="vacancies-note">Хочешь в команду? Отправь заявку через форму ниже или напиши нам на почту.</p>
+        </div>
+    </section>
+
+    <!-- Окно для заполнения отзыва/вопроса -->
+    <section id="feedback" class="feedback-section">
+        <div class="container">
+            <h2>Обратная связь</h2>
+            <p class="section-subtitle">Есть вопрос по поводу SWORD N` FOREST или хочешь отправить отзыв/резюме? Напиши нам!</p>
+            <form id="gmail-form" class="feedback-form">
+                <div class="form-group">
+                    <label for="user-name">Ваше имя или никнейм:</label>
+                    <input type="text" id="user-name" placeholder="Иван" required>
+                </div>
+                <div class="form-group">
+                    <label for="form-subject">Тема обращения:</label>
+                    <select id="form-subject">
+                        <option value="Вопрос по SWORD N` FOREST">Вопрос по SWORD N` FOREST</option>
+                        <option value="Хочу в команду (Вакансия)">Хочу в команду (Вакансия)</option>
+                        <option value="Отзыв / Предложение">Отзыв / Предложение</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="user-message">Сообщение:</label>
+                    <textarea id="user-message" rows="5" placeholder="Текст вашего сообщения..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Отправить на Gmail</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-links">
+                <p>Email: <a href="mailto:ptgscompanyyt@gmail.com">ptgscompanyyt@gmail.com</a></p>
+                <p>Сообщество VK: <a href="https://vk.com" target="_blank">://vk.com</a></p>
+            </div>
+            <p class="copyright">&copy; 2026 PTGScompany. Все права защищены. Нижний Тагил.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

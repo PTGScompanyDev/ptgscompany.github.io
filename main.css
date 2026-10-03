@@ -1,0 +1,402 @@
+/* ==========================================================================
+   Базовые сбросы стилей и шрифты
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d1117;
+    color: #c9d1d9;
+}
+
+body {
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.highlight {
+    color: #58a6ff;
+    text-shadow: 0 0 10px rgba(88, 166, 255, 0.5);
+}
+
+/* ==========================================================================
+   Шапка сайта и навигация
+   ========================================================================== */
+.site-header {
+    background-color: rgba(22, 27, 34, 0.95);
+    border-bottom: 1px solid #30363d;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.main-nav ul li {
+    margin-left: 25px;
+}
+
+.main-nav ul li a {
+    color: #8b949e;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+    color: #58a6ff;
+}
+
+/* ==========================================================================
+   Главный баннер (Hero Section)
+   ========================================================================== */
+.hero-section {
+    padding: 180px 0 100px 0;
+    background: radial-gradient(circle at top right, #1f293d 0%, #0d1117 70%);
+    text-align: center;
+    border-bottom: 1px solid #21262d;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    color: #8b949e;
+}
+
+/* ==========================================================================
+   Компоненты кнопок
+   ========================================================================== */
+.btn-primary, .btn-secondary, .btn-archived, .btn-submit {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #238636;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #2ea44f;
+    box-shadow: 0 0 15px rgba(46, 164, 79, 0.4);
+}
+
+.btn-secondary {
+    background-color: #21262d;
+    color: #58a6ff;
+    border: 1px solid #30363d;
+}
+
+.btn-archived {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #21262d;
+    color: #8b949e;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.btn-archived:hover {
+    background-color: #30363d;
+    color: #ffffff;
+}
+
+.btn-disabled {
+    background-color: #161b22;
+    color: #484f58;
+    border: 1px solid #21262d;
+    cursor: not-allowed;
+}
+
+.btn-submit {
+    background-color: #58a6ff;
+    color: #0d1117;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.btn-submit:hover {
+    background-color: #79c0ff;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.4);
+}
+
+/* ==========================================================================
+   Секции и заголовки
+   ========================================================================== */
+section {
+    padding: 80px 0;
+    border-bottom: 1px solid #21262d;
+}
+
+section h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #8b949e;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Секция О нас */
+.about-section p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #8b949e;
+}
+
+/* ==========================================================================
+   Игры (Различия между Активным и Закрытым проектами)
+   ========================================================================== */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.game-card {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Активный проект подсвечивается зеленым неоном */
+.game-card.active-project {
+    border-left: 4px solid #2ea44f;
+}
+.game-card.active-project:hover {
+    transform: translateY(-5px);
+    border-color: #2ea44f;
+    box-shadow: 0 5px 15px rgba(46, 164, 79, 0.1);
+}
+
+/* Закрытый проект уходит в серость */
+.game-card.archived-project {
+    opacity: 0.65;
+    border-left: 4px solid #da3637;
+}
+.game-card.archived-project:hover {
+    opacity: 0.9;
+}
+
+.game-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.game-badge.active {
+    background-color: rgba(46, 164, 79, 0.15);
+    color: #3fb950;
+    border: 1px solid rgba(46, 164, 79, 0.3);
+}
+
+.game-badge.archived {
+    background-color: rgba(248, 81, 73, 0.15);
+    color: #f85149;
+    border: 1px solid rgba(248, 81, 73, 0.3);
+}
+
+.game-card h3 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.game-card p {
+    color: #8b949e;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+/* ==========================================================================
+   Секция вакансий
+   ========================================================================== */
+.vacancies-list {
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+.vacancy-item {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.vacancy-item h4 {
+    color: #ffffff;
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+.vacancy-item p {
+    color: #8b949e;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.vacancy-pay {
+    display: inline-block;
+    color: #58a6ff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: rgba(88, 166, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.vacancies-note {
+    text-align: center;
+    font-style: italic;
+    color: #8b949e;
+}
+
+/* ==========================================================================
+   Форма обратной связи
+   ========================================================================== */
+.feedback-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    padding: 4px 30px 30px 30px;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 12px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #58a6ff;
+}
+
+/* ==========================================================================
+   Подвал сайта
+   ========================================================================== */
+.site-footer {
+    background-color: #090d16;
+    padding: 40px 0;
+    text-align: center;
+    border-top: 1px solid #30363d;
+}
+
+.footer-links p {
+    margin: 5px 0;
+}
+
+.footer-links a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    color: #484f58;
+    margin-top: 20px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .site-header .container { flex-direction: column; padding: 10px 0; }
+    .main-nav { margin-top: 10px; }
+    .main-nav ul li { margin: 0 10px; }
+    .hero-section { padding: 140px 0 60px 0; }
+    .hero-content h1 { font-size: 2rem; }
+    .games-grid { grid-template-columns: 1fr; }
+}
