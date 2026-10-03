@@ -1,83 +1,164 @@
 /* ==========================================================================
-   Логика для сайта PTGScompany (Обновленная версия)
+   Логика сайта PTGScompany (Фоновая отправка форм и Анимация пикселей)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Плавная прокрутка меню
     initSmoothScroll();
-
-    // Обработка формы отправки на Gmail
-    initFeedbackFormHandler();
+    initForestPixels(); // Запуск эффекта падающей чащи
+    initAjaxFeedbackForm(); // Запуск фоновой отправки на Gmail
 
 });
 
 /**
- * Обеспечивает мягкий и плавный скролл к секциям сайта
+ * Плавный скролл к секциям
  */
 function initSmoothScroll() {
-    const navLinks = document.querySelectorAll('.main-nav a, .hero-content .btn-primary');
+    const navLinks = document.querySelectorAll('.main-nav a[href^="#"], .hero-content .btn-primary');
 
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
+            e.preventDefault();
             
-            if (targetId && targetId.startsWith('#')) {
-                e.preventDefault();
-                
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    const headerOffset = 70; 
-                    const elementPosition = targetSection.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                const headerOffset = 70; 
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
             }
         });
     });
 }
 
 /**
- * Перехватывает отправку формы, собирает текст и открывает клиент Gmail с готовым письмом
+ * Генератор анимации зеленых пикселей (эффект леса для SWORD N` FOREST)
  */
-function initFeedbackFormHandler() {
-    const form = document.getElementById('gmail-form');
-    
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Запрещаем перезагрузку страницы
+function initForestPixels() {
+    const container = document.querySelector('.pixel-animation-container');
+    if (!container) return;
 
-            // Получаем данные из полей ввода
-            const name = document.getElementById('user-name').value.trim();
-            const subjectSelection = document.getElementById('form-subject').value;
-            const messageText = document.getElementById('user-message').value.trim();
-            
-            // Наш целевой ящик
-            const emailTo = 'ptgscompanyyt@gmail.com';
-            
-            // Формируем тему письма (например: [Форма сайта] Вопрос по SWORD N` FOREST)
-            const emailSubject = encodeURIComponent(`[Сайт PTGS] ${subjectSelection}`);
-            
-            // Формируем красивое тело письма с переносами строк
-            const emailBody = encodeURIComponent(
-                `Отправитель: ${name}\n` +
-                `Категория: ${subjectSelection}\n` +
-                `--------------------------------------------------\n\n` +
-                `${messageText}`
-            );
-            
-            // Строим специальную mailto-ссылку
-            const mailtoUrl = `mailto:${emailTo}?subject=${emailSubject}&body=${emailBody}`;
-            
-            // Запускаем открытие почтового клиента
-            window.location.href = mailtoUrl;
-            
-            // Сбрасываем поля формы после успешного действия
-            form.reset();
-        });
+    const maxPixels = 20; // Количество одновременно падающих частиц
+
+    for (let i = 0; i < maxPixels; i++) {
+        createPixel(container);
     }
+}
+
+function createPixel(container) {
+    const pixel = document.createElement('div');
+    pixel.className = 'forest-pixel';
+    
+    // Случайные параметры для естественности эффекта
+    pixel.style.left = Math.random() * 100 + '%';
+    pixel.style.animationDelay = Math.random() * 5 + 's';
+    pixel.style.animationDuration = (Math.random() * 3 + 4) + 's'; // от 4 до 7 секунд
+    
+    // Разные оттенки зеленого цвета леса
+    const greenShades = ['#2ea44f', '#238636', '#3fb950', '#1f672e'];
+    pixel.style.backgroundColor = greenShades[Math.floor(Math.random() * greenShades.length)];
+
+    container.appendChild(pixel);
+}
+
+/**
+ * Асинхронная отправка формы на почту через API Web3Forms (Без перезагрузки)
+ */
+function initAjaxFeedbackForm() {
+    const form = document.getElementById('ajax-feedback-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Проверяем, заменен ли дефолтный ключ авторизации
+        const keyInput = document.getElementById('web3forms-key').value;
+        if (keyInput === 'YOUR_ACCESS_KEY_HERE') {
+            alert('Ошибка конфигурации: Не установлен API-ключ для отправки писем. Пожалуйста, прочитайте инструкцию разработчика.');
+            return;
+        }
+
+        submitBtn.textContent = 'Отправка...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+
+        // Отправляем асинхронный POST-запрос на шлюз Web3Forms
+        fetch('https://web3forms.com', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            let res = await response.json();
+            if (response.status == 200) {
+                // Если шлюз принял, выводим сообщение об успехе
+                showCustomToast('Успешно! Ваше сообщение отправлено на почту PTGScompany.', true);
+                form.reset();
+            } else {
+                showCustomToast('Ошибка сервера: ' + res.message, false);
+            }
+        })
+        .catch(error => {
+            showCustomToast('Не удалось отправить сообщение. Проверьте интернет-соединение.', false);
+        })
+        .then(() => {
+            // Возвращаем кнопку в исходное состояние
+            submitBtn.textContent = 'Отправить сообщение';
+            submitBtn.disabled = false;
+        });
+    });
+}
+
+/**
+ * Всплывающее уведомление
+ */
+function showCustomToast(message, isSuccess) {
+    const oldToast = document.querySelector('.form-toast');
+    if (oldToast) oldToast.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'form-toast';
+    toast.innerText = message;
+
+    Object.assign(toast.style, {
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        backgroundColor: '#161b22',
+        color: '#ffffff',
+        padding: '15px 25px',
+        borderRadius: '6px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+        border: isSuccess ? '1px solid #2ea44f' : '1px solid #f85149',
+        zIndex: '3000',
+        transition: 'all 0.4s ease',
+        opacity: '0',
+        transform: 'translateY(20px)'
+    });
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+    }, 100);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
+        setTimeout(() => toast.remove(), 400);
+    }, 4000);
 }
